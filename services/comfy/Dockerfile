@@ -1,4 +1,6 @@
 FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
+RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
 
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 
@@ -6,7 +8,7 @@ RUN apt-get update && apt-get install -y git && apt-get clean
 
 ENV ROOT=/stable-diffusion
 RUN --mount=type=cache,target=/root/.cache/pip \
-  git clone https://github.com/comfyanonymous/ComfyUI.git ${ROOT} && \
+  git clone https://kkgithub.com/comfyanonymous/ComfyUI.git ${ROOT} && \
   cd ${ROOT} && \
   git checkout master && \
   git reset --hard d1f3637a5a944d0607b899babd8ff11d87100503 && \
